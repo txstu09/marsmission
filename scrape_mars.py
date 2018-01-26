@@ -3,10 +3,6 @@ import pandas as pd
 from splinter import Browser
 from bs4 import BeautifulSoup as bs
 
-conn = 'mongodb://localhost:27017'
-client = pymongo.MongoClient(conn)
-db = mars_db
-
 def mars_news():
     browser = Browser('chrome', headless=True)
     url = "https://mars.nasa.gov/news/"
