@@ -33,3 +33,18 @@ def mars_image():
     img_link = f"https://www.jpl.nasa.gov{img_tag[0]['src']}"
     image = {'image_link':img_link}
     return(image)
+
+def mars_weather():
+    browser = Browser('chrome', headless=True)
+    url = 'https://twitter.com/MarsWxReport?lang=en'
+    browser.visit(url)
+    html = browser.html
+    soup = bs(html, 'html.parser')
+    tweets = soup.find_all('p', class_='tweet-text')
+    for tweet in tweets:
+        tweet_split = tweet.text.split()
+        if tweet_split[0] == 'Sol':
+            weather_tweet = tweet.text
+            break
+    weather = {'current_weather':weather_tweet}
+    return(weather)
