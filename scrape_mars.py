@@ -22,7 +22,7 @@ def mars_image():
     url = "https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars"
     browser.visit(url)
     browser.click_link_by_id('full_image')
-    time.sleep(3)
+    time.sleep(5) #need to play with wait interval
     html = browser.html
     soup = bs(html, 'html.parser')
     img_tag = soup.find_all('img', class_='fancybox-image')
