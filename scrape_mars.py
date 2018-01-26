@@ -20,6 +20,16 @@ def mars_news():
     news_title = result_title.text
     news_teaser = result_teaser.text
     news = {'title':news_title,'lede':news_teaser}
-    return (news)
+    return(news)
 
 def mars_image():
+    browser = Browser('chrome', headless=False)
+    url = "https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars"
+    browser.visit(url)
+    browser.click_link_by_id('full_image')
+    html = browser.html
+    soup = bs(html, 'html.parser')
+    img_tag = soup.find_all('img', class_='fancybox-image')
+    img_link = f"https://www.jpl.nasa.gov{img_tag[0]['src']}"
+    image = {'image_link':img_link}
+    return(image)
