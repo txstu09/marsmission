@@ -56,3 +56,23 @@ def mars_facts():
     df = df.rename(columns={0:'description',1:'value'})
     facts = df.to_dict('records')
     return(facts)
+
+def mars_hemispheres():
+    browser = Browser('chrome', headless=True)
+    url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
+    browser.visit(url)
+    hemisphere_image_urls = []
+    for x in range(4):
+        css_link = "div.collapsible.results > div:nth-child("+str(x+1)+") > div > a"
+        browser.find_by_css(css_link).click()
+        html = browser.html
+        soup = bs(html, 'html.parser')
+        downloads = soup.find('div', class_='downloads')
+        image_url = downloads.find('a')['href']
+        title_text = soup.find('h2', class_='title').text
+        title_split = title_text.split()
+        del title_split[-1]
+        title = " ".join(title_split)
+        hemisphere_image_urls.append({'image_url':image_url,'title':title})
+        browser.back()
+    return(hemisphere_image_urls)
