@@ -23,7 +23,7 @@ def mars_news():
     return(news)
 
 def mars_image():
-    browser = Browser('chrome', headless=False)
+    browser = Browser('chrome', headless=True)
     url = "https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars"
     browser.visit(url)
     browser.click_link_by_id('full_image')
@@ -48,3 +48,11 @@ def mars_weather():
             break
     weather = {'current_weather':weather_tweet}
     return(weather)
+
+def mars_facts():
+    url = 'https://space-facts.com/mars/'
+    tables = pd.read_html(url)
+    df = tables[0]
+    df = df.rename(columns={0:'description',1:'value'})
+    facts = df.to_dict('records')
+    return(facts)
