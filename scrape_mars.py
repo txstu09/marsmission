@@ -1,6 +1,4 @@
 import pandas as pd
-import pymongo
-import flask
 
 from splinter import Browser
 from bs4 import BeautifulSoup as bs
@@ -75,4 +73,4 @@ def mars_hemispheres():
         title = " ".join(title_split)
         hemisphere_image_urls.append({'image_url':image_url,'title':title})
         browser.back()
-    return(hemisphere_image_urls)
+    return(hemisphere_image_urls)    
